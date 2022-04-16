@@ -12,7 +12,7 @@ const copman: AppRouteModule = {
     hideChildrenInMenu: false,
     icon: 'bxl:microsoft-teams',
     title: '企业管理',
-    orderNo: 11,
+    orderNo: 12,
   },
   children: [
     {

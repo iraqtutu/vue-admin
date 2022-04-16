@@ -1,10 +1,10 @@
 {
-  "name": "vben-admin",
+  "name": "vue-admin",
   "version": "2.8.0",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "chenchangjian",
+    "email": "chenchangjian@outlook.com",
+    "url": "https://github.com/"
   },
   "scripts": {
     "bootstrap": "pnpm install",
@@ -150,13 +150,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+    "url": "git+https://github.com/"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anncwb/vue-vben-admin/issues"
+    "url": "https://github.com/"
   },
-  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "homepage": "https://github.com/",
   "engines": {
     "node": "^12 || >=14"
   },
