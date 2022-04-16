@@ -10,7 +10,7 @@ const copman: AppRouteModule = {
   redirect: '/copman/index',
   meta: {
     hideChildrenInMenu: false,
-    icon: 'simple-icons:about-dot-me',
+    icon: 'bxl:microsoft-teams',
     title: '企业管理',
     orderNo: 11,
   },
@@ -21,7 +21,7 @@ const copman: AppRouteModule = {
       component: () => import('/@/views/cop/copman/index.vue'),
       meta: {
         title: '企业设置',
-        icon: 'simple-icons:about-dot-me',
+        icon: 'file-icons:config-coffeescript',
         hideMenu: false,
       },
     },
@@ -31,7 +31,7 @@ const copman: AppRouteModule = {
       component: () => import('/@/views/cop/appman/index.vue'),
       meta: {
         title: '应用管理',
-        icon: 'simple-icons:about-dot-me',
+        icon: 'fa-brands:app-store',
         hideMenu: false,
       },
     },
@@ -41,7 +41,7 @@ const copman: AppRouteModule = {
       component: () => import('/@/views/cop/userman/index.vue'),
       meta: {
         title: '通讯录管理',
-        icon: 'simple-icons:about-dot-me',
+        icon: 'fluent:contact-card-group-16-regular',
         hideMenu: false,
       },
     },

@@ -10,7 +10,7 @@ const platform: AppRouteModule = {
   redirect: '/plateform/index',
   meta: {
     hideChildrenInMenu: false,
-    icon: 'simple-icons:about-dot-me',
+    icon: 'arcticons:qmanager',
     title: '平台管理',
     orderNo: 11,
   },
@@ -21,7 +21,7 @@ const platform: AppRouteModule = {
       component: () => import('/@/views/platform/index.vue'),
       meta: {
         title: '平台设置',
-        icon: 'simple-icons:about-dot-me',
+        icon: 'eos-icons:cluster-management-outlined',
         hideMenu: false,
       },
     },
@@ -31,7 +31,7 @@ const platform: AppRouteModule = {
       component: () => import('/@/views/platform/copsman/index.vue'),
       meta: {
         title: '入驻企业管理',
-        icon: 'simple-icons:about-dot-me',
+        icon: 'carbon:certificate-check',
         hideMenu: false,
       },
     },
