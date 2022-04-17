@@ -10,7 +10,7 @@ const platform: AppRouteModule = {
   redirect: '/plateform/index',
   meta: {
     hideChildrenInMenu: false,
-    icon: 'arcticons:qmanager',
+    icon: 'tabler:template',
     title: '平台管理',
     orderNo: 11,
   },

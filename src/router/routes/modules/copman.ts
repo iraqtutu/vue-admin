@@ -26,12 +26,12 @@ const copman: AppRouteModule = {
       },
     },
     {
-      path: 'appman',
-      name: 'appman',
-      component: () => import('/@/views/cop/appman/index.vue'),
+      path: 'depman',
+      name: 'depman',
+      component: () => import('/@/views/cop/depman/index.vue'),
       meta: {
-        title: '应用管理',
-        icon: 'fa-brands:app-store',
+        title: '部门管理',
+        icon: 'carbon:group-security',
         hideMenu: false,
       },
     },
@@ -42,6 +42,16 @@ const copman: AppRouteModule = {
       meta: {
         title: '通讯录管理',
         icon: 'fluent:contact-card-group-16-regular',
+        hideMenu: false,
+      },
+    },
+    {
+      path: 'appman',
+      name: 'appman',
+      component: () => import('/@/views/cop/appman/index.vue'),
+      meta: {
+        title: '应用管理',
+        icon: 'fa-brands:app-store',
         hideMenu: false,
       },
     },
