@@ -31,7 +31,7 @@ const platform: AppRouteModule = {
       component: () => import('/@/views/platform/copsman/index.vue'),
       meta: {
         title: '入驻企业管理',
-        icon: 'carbon:certificate-check',
+        icon: 'ic:baseline-business',
         hideMenu: false,
       },
     },

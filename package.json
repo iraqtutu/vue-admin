@@ -34,6 +34,9 @@
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
     "@ant-design/icons-vue": "^6.1.0",
+    "@bytegem/vue-heroicons": "^0.5.0",
+    "@headlessui/vue": "^1.5.0",
+    "@heroicons/vue": "^1.0.6",
     "@iconify/iconify": "^2.2.1",
     "@logicflow/core": "^1.1.11",
     "@logicflow/extension": "^1.1.11",
@@ -49,6 +52,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.0",
     "echarts": "^5.3.2",
+    "element-plus": "^2.1.9",
     "intro.js": "^5.1.0",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",

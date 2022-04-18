@@ -2,6 +2,8 @@ import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
 import '/@/design/index.less';
 import 'virtual:windi-utilities.css';
+import 'element-plus/dist/index.css';
+import ElementPlus from 'element-plus';
 // Register icon sprite
 import 'virtual:svg-icons-register';
 import App from './App.vue';
@@ -31,6 +33,7 @@ async function bootstrap() {
   // Asynchronous case: language files may be obtained from the server side
   await setupI18n(app);
 
+  app.use(ElementPlus);
   // Configure routing
   setupRouter(app);
 
