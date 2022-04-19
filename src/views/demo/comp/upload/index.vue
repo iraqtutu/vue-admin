@@ -4,7 +4,6 @@
     <BasicUpload
       :maxSize="20"
       :maxNumber="10"
-      @change="handleChange"
       :api="uploadApi"
       class="my-5"
       :accept="['image/*']"
@@ -18,7 +17,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicUpload } from '/@/components/Upload';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  //import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { PageWrapper } from '/@/components/Page';
   import { Alert } from 'ant-design-vue';
@@ -41,7 +40,7 @@
   export default defineComponent({
     components: { BasicUpload, BasicForm, PageWrapper, [Alert.name]: Alert },
     setup() {
-      const { createMessage } = useMessage();
+      //const { createMessage } = useMessage();
       const [register] = useForm({
         labelWidth: 120,
         schemas,
@@ -50,9 +49,11 @@
         },
       });
       return {
+        /*
         handleChange: (list: string[]) => {
           createMessage.info(`已上传文件${JSON.stringify(list)}`);
         },
+        */
         uploadApi,
         register,
       };

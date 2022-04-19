@@ -6,9 +6,11 @@ import { getAppEnvConfig } from '/@/utils/env';
 export const useGlobSetting = (): Readonly<GlobConfig> => {
   const {
     VITE_GLOB_APP_TITLE,
-    VITE_GLOB_API_URL,
+    VITE_LOCAL_MOCK_URL,
+    VITE_REMOTE_MOCK_URL,
+    VITE_API_URL,
     VITE_GLOB_APP_SHORT_NAME,
-    VITE_GLOB_API_URL_PREFIX,
+    VITE_LOCAL_MOCK_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
   } = getAppEnvConfig();
 
@@ -21,9 +23,11 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
   // Take global configuration
   const glob: Readonly<GlobConfig> = {
     title: VITE_GLOB_APP_TITLE,
-    apiUrl: VITE_GLOB_API_URL,
+    localUrl: VITE_LOCAL_MOCK_URL,
+    mockUrl: VITE_REMOTE_MOCK_URL,
+    apiUrl: VITE_API_URL,
     shortName: VITE_GLOB_APP_SHORT_NAME,
-    urlPrefix: VITE_GLOB_API_URL_PREFIX,
+    urlPrefix: VITE_LOCAL_MOCK_URL_PREFIX,
     uploadUrl: VITE_GLOB_UPLOAD_URL,
   };
   return glob as Readonly<GlobConfig>;

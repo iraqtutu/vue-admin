@@ -202,7 +202,7 @@ const transform: AxiosTransform = {
   },
 };
 
-function createAxios(opt?: Partial<CreateAxiosOptions>) {
+function createAxios(url: string, opt?: Partial<CreateAxiosOptions>) {
   return new VAxios(
     deepMerge(
       {
@@ -234,7 +234,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 消息提示类型
           errorMessageMode: 'message',
           // 接口地址
-          apiUrl: globSetting.apiUrl,
+          apiUrl: url, //globSetting.localUrl,
           // 接口拼接地址
           urlPrefix: urlPrefix,
           //  是否加入时间戳
@@ -254,7 +254,9 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
-export const defHttp = createAxios();
+export const localHttp = createAxios(globSetting.localUrl); //本地Mock
+export const mockHttp = createAxios(globSetting.mockUrl); //远程Mock
+export const apiHttp = createAxios(globSetting.apiUrl); //远程接口
 
 // other api url
 // export const otherHttp = createAxios({

@@ -45,7 +45,7 @@ const userInfo = {
 
 export default [
   {
-    url: '/basic-api/account/getAccountInfo',
+    url: '/local-mock/account/getAccountInfo',
     timeout: 1000,
     method: 'get',
     response: () => {
@@ -53,7 +53,7 @@ export default [
     },
   },
   {
-    url: '/basic-api/user/sessionTimeout',
+    url: '/local-mock/user/sessionTimeout',
     method: 'post',
     statusCode: 401,
     response: () => {
@@ -61,7 +61,7 @@ export default [
     },
   },
   {
-    url: '/basic-api/user/tokenExpired',
+    url: '/local-mock/user/tokenExpired',
     method: 'post',
     statusCode: 200,
     response: () => {

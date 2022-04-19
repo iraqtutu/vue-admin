@@ -139,8 +139,10 @@ export interface GlobConfig {
   // Site title
   title: string;
   // Service interface url
-  apiUrl: string;
+  localUrl: string;
   // Upload url
+  mockUrl: string;
+  apiUrl: string;
   uploadUrl?: string;
   //  Service interface url prefix
   urlPrefix?: string;
@@ -151,9 +153,13 @@ export interface GlobEnvConfig {
   // Site title
   VITE_GLOB_APP_TITLE: string;
   // Service interface url
-  VITE_GLOB_API_URL: string;
+  VITE_LOCAL_MOCK_URL: string;
+
+  VITE_REMOTE_MOCK_URL: string;
+
+  VITE_API_URL: string;
   // Service interface url prefix
-  VITE_GLOB_API_URL_PREFIX?: string;
+  VITE_LOCAL_MOCK_URL_PREFIX?: string;
   // Project abbreviation
   VITE_GLOB_APP_SHORT_NAME: string;
   // Upload url
