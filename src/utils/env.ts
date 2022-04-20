@@ -25,6 +25,7 @@ export function getAppEnvConfig() {
   const {
     VITE_GLOB_APP_TITLE,
     VITE_LOCAL_MOCK_URL,
+    VITE_LOCAL_JAVA_URL,
     VITE_REMOTE_MOCK_URL,
     VITE_API_URL,
     VITE_GLOB_APP_SHORT_NAME,
@@ -41,6 +42,7 @@ export function getAppEnvConfig() {
   return {
     VITE_GLOB_APP_TITLE,
     VITE_LOCAL_MOCK_URL,
+    VITE_LOCAL_JAVA_URL,
     VITE_REMOTE_MOCK_URL,
     VITE_API_URL,
     VITE_GLOB_APP_SHORT_NAME,

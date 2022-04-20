@@ -1,70 +1,144 @@
 <template>
-  <div>
-    <el-table :data="tableData" style="width: 100%" max-height="250">
-      <el-table-column fixed prop="date" label="Date" width="150" />
-      <el-table-column prop="name" label="企业名称" width="120" />
-      <el-table-column prop="state" label="创建人" width="120" />
-      <el-table-column prop="city" label="电话" width="120" />
-      <el-table-column prop="address" label="邮箱" width="600" />
-      <el-table-column prop="zip" label="Zip" width="120" />
-      <el-table-column fixed="right" label="操作" width="120">
-        <template #default="scope">
-          <el-button type="text" size="small" @click.prevent="deleteRow(scope.$index)">
-            删除
-          </el-button>
+  <PageWrapper :class="prefixCls">
+    <div :class="`${prefixCls}__content`">
+      <a-list :pagination="pagination">
+        <template v-for="item in list" :key="item.id">
+          <a-list-item class="list">
+            <a-list-item-meta>
+              <template #avatar>
+                <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
+              </template>
+              <template #title>
+                <span>{{ item.title }}</span>
+                <div class="extra" v-if="item.extra">
+                  {{ item.extra }}
+                </div>
+              </template>
+              <template #description>
+                <div class="description">
+                  {{ item.description }}
+                </div>
+                <div class="info">
+                  <div><span>Owner</span>{{ item.author }}</div>
+                  <div><span>开始时间</span>{{ item.datetime }}</div>
+                </div>
+                <div class="progress">
+                  <Progress :percent="item.percent" status="active" />
+                </div>
+              </template>
+            </a-list-item-meta>
+          </a-list-item>
         </template>
-      </el-table-column>
-    </el-table>
-    <el-button class="mt-4" style="width: 100%" @click="onAddItem">添加</el-button>
-  </div>
+      </a-list>
+    </div>
+  </PageWrapper>
 </template>
+<script lang="ts">
+  import { Progress, Row, Col } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+  import Icon from '/@/components/Icon/index';
+  import { cardList } from './data';
+  import { PageWrapper } from '/@/components/Page';
+  import { List } from 'ant-design-vue';
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import dayjs from 'dayjs';
-
-  const now = new Date();
-
-  const tableData = ref([
-    {
-      date: '2016-05-01',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
+  export default defineComponent({
+    components: {
+      Icon,
+      Progress,
+      PageWrapper,
+      [List.name]: List,
+      [List.Item.name]: List.Item,
+      AListItemMeta: List.Item.Meta,
+      [Row.name]: Row,
+      [Col.name]: Col,
     },
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
+    setup() {
+      return {
+        prefixCls: 'list-basic',
+        list: cardList,
+        pagination: {
+          show: true,
+          pageSize: 3,
+        },
+      };
     },
-    {
-      date: '2016-05-03',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
-    },
-  ]);
-
-  const deleteRow = (index: number) => {
-    tableData.value.splice(index, 1);
-  };
-
-  const onAddItem = () => {
-    now.setDate(now.getDate() + 1);
-    tableData.value.push({
-      date: dayjs(now).format('YYYY-MM-DD'),
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
-    });
-  };
+  });
 </script>
+<style lang="less" scoped>
+  .list-basic {
+    &__top {
+      padding: 24px;
+      text-align: center;
+      background-color: @component-background;
+
+      &-col {
+        &:not(:last-child) {
+          border-right: 1px dashed @border-color-base;
+        }
+
+        div {
+          margin-bottom: 12px;
+          font-size: 14px;
+          line-height: 22px;
+          color: @text-color;
+        }
+
+        p {
+          margin: 0;
+          font-size: 24px;
+          line-height: 32px;
+          color: @text-color;
+        }
+      }
+    }
+
+    &__content {
+      padding: 24px;
+      margin-top: 12px;
+      background-color: @component-background;
+
+      .list {
+        position: relative;
+      }
+
+      .icon {
+        font-size: 40px !important;
+      }
+
+      .extra {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        font-weight: normal;
+        color: @primary-color;
+        cursor: pointer;
+      }
+
+      .description {
+        display: inline-block;
+        width: 40%;
+      }
+
+      .info {
+        display: inline-block;
+        width: 30%;
+        text-align: center;
+
+        div {
+          display: inline-block;
+          padding: 0 20px;
+
+          span {
+            display: block;
+          }
+        }
+      }
+
+      .progress {
+        display: inline-block;
+        width: 15%;
+        vertical-align: top;
+      }
+    }
+  }
+</style>

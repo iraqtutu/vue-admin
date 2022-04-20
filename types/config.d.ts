@@ -140,6 +140,8 @@ export interface GlobConfig {
   title: string;
   // Service interface url
   localUrl: string;
+
+  localJavaDebug: string;
   // Upload url
   mockUrl: string;
   apiUrl: string;
@@ -154,6 +156,8 @@ export interface GlobEnvConfig {
   VITE_GLOB_APP_TITLE: string;
   // Service interface url
   VITE_LOCAL_MOCK_URL: string;
+
+  VITE_LOCAL_JAVA_URL: string;
 
   VITE_REMOTE_MOCK_URL: string;
 
