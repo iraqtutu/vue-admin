@@ -255,6 +255,7 @@ function createAxios(url: string, opt?: Partial<CreateAxiosOptions>) {
   );
 }
 export const localHttp = createAxios(globSetting.localUrl); //本地Mock
+export const localDebugHttp = createAxios(globSetting.localJavaDebug); //本地Mock
 export const mockHttp = createAxios(globSetting.mockUrl); //远程Mock
 export const apiHttp = createAxios(globSetting.apiUrl); //远程接口
 
