@@ -1,144 +1,70 @@
 <template>
-  <PageWrapper :class="prefixCls">
-    <div :class="`${prefixCls}__content`">
-      <a-list :pagination="pagination">
-        <template v-for="item in list" :key="item.id">
-          <a-list-item class="list">
-            <a-list-item-meta>
-              <template #avatar>
-                <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
-              </template>
-              <template #title>
-                <span>{{ item.title }}</span>
-                <div class="extra" v-if="item.extra">
-                  {{ item.extra }}
-                </div>
-              </template>
-              <template #description>
-                <div class="description">
-                  {{ item.description }}
-                </div>
-                <div class="info">
-                  <div><span>Owner</span>{{ item.author }}</div>
-                  <div><span>开始时间</span>{{ item.datetime }}</div>
-                </div>
-                <div class="progress">
-                  <Progress :percent="item.percent" status="active" />
-                </div>
-              </template>
-            </a-list-item-meta>
-          </a-list-item>
-        </template>
-      </a-list>
+  <div class="wrapper">
+    <div class="item" v-for="cop in pagination.curlist.records" :key="cop.id">
+      {{ cop.logo }}
+      <div class="copname">名称：{{ cop.copName }}</div>
+      <div class="address">地址：{{ cop.address }}</div>
+      <div class="linkman">联系人：{{ cop.linkMan }}</div>
+      <div class="mobile">联系电话：{{ cop.linkManMobile }}</div>
+      <div class="status">状态：{{ cop.status }}</div>
+      <div class="operate">
+        <el-button type="primary" size="mini" @click="edit(cop)">编辑</el-button>
+        <el-button type="danger" size="mini" @click="deleteCop(cop)">删除</el-button>
+      </div>
     </div>
-  </PageWrapper>
+    <el-pagination
+      :hide-on-single-page="pagination.hidesp"
+      :total="pagination.total"
+      :page-size="pagination.pagesize"
+      :current-page="pagination.currentpage"
+      @current-change="handleCurrentChange"
+      layout="prev, pager, next"
+    />
+  </div>
 </template>
-<script lang="ts">
-  import { Progress, Row, Col } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
-  import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { List } from 'ant-design-vue';
+<script setup lang="ts">
+  import { Cop, CopPage } from '/@/api/platform/model/copModel';
+  import { queryCops } from '/@/api/platform/cop';
+  import { BasicPageParams } from '/@/api/model/baseModel';
+  import { onBeforeMount, reactive } from 'vue';
 
-  export default defineComponent({
-    components: {
-      Icon,
-      Progress,
-      PageWrapper,
-      [List.name]: List,
-      [List.Item.name]: List.Item,
-      AListItemMeta: List.Item.Meta,
-      [Row.name]: Row,
-      [Col.name]: Col,
-    },
-    setup() {
-      return {
-        prefixCls: 'list-basic',
-        list: cardList,
-        pagination: {
-          show: true,
-          pageSize: 3,
-        },
-      };
-    },
+  let show = true;
+  let hidesp = true;
+  let total = 0;
+  let pagesize = 3;
+  let currentpage = 0;
+  let curlist: CopPage = {} as CopPage;
+
+  const pagination = reactive({
+    show,
+    hidesp,
+    total,
+    pagesize,
+    currentpage,
+    curlist,
   });
-</script>
-<style lang="less" scoped>
-  .list-basic {
-    &__top {
-      padding: 24px;
-      text-align: center;
-      background-color: @component-background;
 
-      &-col {
-        &:not(:last-child) {
-          border-right: 1px dashed @border-color-base;
-        }
-
-        div {
-          margin-bottom: 12px;
-          font-size: 14px;
-          line-height: 22px;
-          color: @text-color;
-        }
-
-        p {
-          margin: 0;
-          font-size: 24px;
-          line-height: 32px;
-          color: @text-color;
-        }
-      }
-    }
-
-    &__content {
-      padding: 24px;
-      margin-top: 12px;
-      background-color: @component-background;
-
-      .list {
-        position: relative;
-      }
-
-      .icon {
-        font-size: 40px !important;
-      }
-
-      .extra {
-        position: absolute;
-        top: 20px;
-        right: 15px;
-        font-weight: normal;
-        color: @primary-color;
-        cursor: pointer;
-      }
-
-      .description {
-        display: inline-block;
-        width: 40%;
-      }
-
-      .info {
-        display: inline-block;
-        width: 30%;
-        text-align: center;
-
-        div {
-          display: inline-block;
-          padding: 0 20px;
-
-          span {
-            display: block;
-          }
-        }
-      }
-
-      .progress {
-        display: inline-block;
-        width: 15%;
-        vertical-align: top;
-      }
-    }
+  function handleCurrentChange(val: number) {
+    pagination.currentpage = val;
+    const param: BasicPageParams = {
+      page: pagination.currentpage,
+      pageSize: pagination.pagesize,
+    };
+    queryCops(param).then((res) => {
+      pagination.curlist = res;
+      pagination.currentpage = res.current;
+      pagination.total = res.total;
+    });
   }
-</style>
+
+  onBeforeMount(() => {
+    handleCurrentChange(pagination.currentpage);
+  });
+
+  function edit(cop: Cop) {
+    console.log(cop);
+  }
+  function deleteCop(cop: Cop) {
+    console.log(cop);
+  }
+</script>
