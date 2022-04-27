@@ -43,7 +43,7 @@ specifiers:
   '@vueuse/core': ^8.2.5
   '@vueuse/shared': ^8.2.5
   '@zxcvbn-ts/core': ^2.0.1
-  ant-design-vue: 3.1.1
+  ant-design-vue: ^3.2.2
   autoprefixer: ^10.4.4
   axios: ^0.26.1
   codemirror: ^5.65.2
@@ -133,7 +133,7 @@ dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.2.6_vue@3.2.31
   '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/8.2.6_vue@3.2.31
   '@zxcvbn-ts/core': 2.0.1
-  ant-design-vue: registry.npmmirror.com/ant-design-vue/3.1.1_vue@3.2.31
+  ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.2_vue@3.2.31
   axios: 0.26.1
   codemirror: 5.65.2
   cropperjs: 1.5.12
@@ -7509,11 +7509,11 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  registry.npmmirror.com/ant-design-vue/3.1.1_vue@3.2.31:
-    resolution: {integrity: sha512-QcnESmPllfyPy4SavOlf1jml/bdmzCIcCgYWRwl0WKG5jbuuOQ0vhgfUCC2rI6R+84gb/qf4/0qoZnWcEyQziA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ant-design-vue/-/ant-design-vue-3.1.1.tgz}
-    id: registry.npmmirror.com/ant-design-vue/3.1.1
+  registry.npmmirror.com/ant-design-vue/3.2.2_vue@3.2.31:
+    resolution: {integrity: sha512-PD9fgioIo+0PtSq8E6BePQ0eho83MsAlHURMePo6IFOPpdv0EE7AFeotOK/rUp1FOyb1fZc5tuJGL3MsJmfn1g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ant-design-vue/-/ant-design-vue-3.2.2.tgz}
+    id: registry.npmmirror.com/ant-design-vue/3.2.2
     name: ant-design-vue
-    version: 3.1.1
+    version: 3.2.2
     peerDependencies:
       vue: '>=3.2.0'
     dependencies:
@@ -7525,7 +7525,7 @@ packages:
       array-tree-filter: registry.npmmirror.com/array-tree-filter/2.1.0
       async-validator: registry.npmmirror.com/async-validator/4.0.7
       dayjs: registry.npmmirror.com/dayjs/1.11.0
-      dom-align: registry.npmmirror.com/dom-align/1.12.2
+      dom-align: registry.npmmirror.com/dom-align/1.12.3
       dom-scroll-into-view: registry.npmmirror.com/dom-scroll-into-view/2.0.1
       lodash: registry.npmmirror.com/lodash/4.17.21
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
@@ -8331,10 +8331,10 @@ packages:
       esutils: registry.npmmirror.com/esutils/2.0.3
     dev: true
 
-  registry.npmmirror.com/dom-align/1.12.2:
-    resolution: {integrity: sha512-pHuazgqrsTFrGU2WLDdXxCFabkdQDx72ddkraZNih1KsMcN5qsRSTR9O4VJRlwTPCPb5COYg3LOfiMHHcPInHg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dom-align/-/dom-align-1.12.2.tgz}
+  registry.npmmirror.com/dom-align/1.12.3:
+    resolution: {integrity: sha512-Gj9hZN3a07cbR6zviMUBOMPdWxYhbMI+x+WS0NAIu2zFZmbK8ys9R79g+iG9qLnlCwpFoaB+fKy8Pdv470GsPA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dom-align/-/dom-align-1.12.3.tgz}
     name: dom-align
-    version: 1.12.2
+    version: 1.12.3
     dev: false
 
   registry.npmmirror.com/dom-scroll-into-view/2.0.1:

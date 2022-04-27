@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <div class="nodata" v-if="pagination.total <= 0">
+    <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in pagination.curlist.records" :key="rec.id">
+    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="createtime">授权码创建时间;：{{ rec.createTime }}</div>
       <div class="code">授权码;：{{ rec.code }}</div>
       <div class="authentication"
@@ -17,13 +17,36 @@
       </div>
     </div>
     <el-pagination
-      :hide-on-single-page="pagination.hidesp"
-      :total="pagination.total"
-      :page-size="pagination.pagesize"
-      :current-page="pagination.currentpage"
+      :hide-on-single-page="cacheState.hidesp"
+      :total="cacheState.total"
+      :page-size="cacheState.pagesize"
+      :current-page="cacheState.currentpage"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
     />
+    <el-dialog
+      v-model="cacheState.dialogVisible"
+      title="OauthCode编辑"
+      lock-scroll="true"
+      width="30%"
+      draggable
+      :before-close="handleClose"
+    >
+      <span>我是对话框</span>
+      <div class="createtime">授权码创建时间;：{{ cacheState.curRec.createTime }}</div>
+      <div class="code">授权码;：{{ cacheState.curRec.code }}</div>
+      <div class="authentication"
+        >存储将AuthorizationRequestHolder.java对象序列化后的二进制数据;：{{
+          cacheState.curRec.authentication
+        }}</div
+      >
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cacheState.dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="cacheState.dialogVisible = false">确认</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -38,42 +61,51 @@
   let pagesize = 3;
   let currentpage = 0;
   let curlist: Page<OauthCode> = {} as Page<OauthCode>;
+  let dialogVisible = false;
+  let curRec = {} as OauthCode;
 
-  const pagination = reactive({
+  const cacheState = reactive({
     show,
     hidesp,
     total,
     pagesize,
     currentpage,
     curlist,
+    dialogVisible,
+    curRec,
   });
 
   function handleCurrentChange(val: number) {
-    pagination.currentpage = val;
+    cacheState.currentpage = val;
     const param: BasicPageParams = {
-      page: pagination.currentpage,
-      pageSize: pagination.pagesize,
+      page: cacheState.currentpage,
+      pageSize: cacheState.pagesize,
     };
     queryOauthCodes(param).then((res) => {
-      pagination.curlist = res;
-      pagination.currentpage = res.current;
-      pagination.total = res.total;
+      cacheState.curlist = res;
+      cacheState.currentpage = res.current;
+      cacheState.total = res.total;
     });
   }
 
   onBeforeMount(() => {
-    handleCurrentChange(pagination.currentpage);
+    handleCurrentChange(cacheState.currentpage);
   });
 
   function onedit(rec: OauthCode) {
-    console.log(rec);
+    cacheState.curRec = rec;
+    cacheState.dialogVisible = true;
   }
   function ondelete(rec: OauthCode) {
     deleteOauthCode(rec.id).then((res) => {
       if (res) {
-        handleCurrentChange(pagination.currentpage);
+        handleCurrentChange(cacheState.currentpage);
       }
     });
+  }
+  function handleClose() {
+    // 点击空白区域是否关闭对话框
+    // cacheState.dialogVisible = false;
   }
 </script>
 <style scoped>

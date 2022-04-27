@@ -16,6 +16,7 @@ export function generateModifyVars(dark = false) {
   }
 
   const modifyVars = getThemeVariables({ dark });
+  debugger;
   return {
     ...modifyVars,
     // Used for global import to avoid the need to import each style file separately

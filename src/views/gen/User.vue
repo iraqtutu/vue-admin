@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <div class="nodata" v-if="pagination.total <= 0">
+    <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in pagination.curlist.records" :key="rec.id">
+    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">数据标识：{{ rec.id }}</div>
       <div class="copid">企业ID：{{ rec.copId }}</div>
       <div class="uuid">用户ID：{{ rec.uuid }}</div>
@@ -32,13 +32,51 @@
       </div>
     </div>
     <el-pagination
-      :hide-on-single-page="pagination.hidesp"
-      :total="pagination.total"
-      :page-size="pagination.pagesize"
-      :current-page="pagination.currentpage"
+      :hide-on-single-page="cacheState.hidesp"
+      :total="cacheState.total"
+      :page-size="cacheState.pagesize"
+      :current-page="cacheState.currentpage"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
     />
+    <el-dialog
+      v-model="cacheState.dialogVisible"
+      title="User编辑"
+      lock-scroll="true"
+      width="30%"
+      draggable
+      :before-close="handleClose"
+    >
+      <span>我是对话框</span>
+      <div class="id">数据标识：{{ cacheState.curRec.id }}</div>
+      <div class="copid">企业ID：{{ cacheState.curRec.copId }}</div>
+      <div class="uuid">用户ID：{{ cacheState.curRec.uuid }}</div>
+      <div class="username">登录名：{{ cacheState.curRec.username }}</div>
+      <div class="nickname">用户昵称：{{ cacheState.curRec.nickname }}</div>
+      <div class="realname">用户真实姓名：{{ cacheState.curRec.realname }}</div>
+      <div class="password">密码：{{ cacheState.curRec.password }}</div>
+      <div class="phone">电话：{{ cacheState.curRec.phone }}</div>
+      <div class="email">邮件：{{ cacheState.curRec.email }}</div>
+      <div class="idnum">身份证号：{{ cacheState.curRec.idnum }}</div>
+      <div class="avatar">头像：{{ cacheState.curRec.avatar }}</div>
+      <div class="idcarda">身份证正面：{{ cacheState.curRec.idcarda }}</div>
+      <div class="idcardb">身份证反面：{{ cacheState.curRec.idcardb }}</div>
+      <div class="note">个人描述：{{ cacheState.curRec.note }}</div>
+      <div class="inneruser">是否平台内置用户：{{ cacheState.curRec.innerUser }}</div>
+      <div class="lastlogintime">最后登录时间：{{ cacheState.curRec.lastLoginTime }}</div>
+      <div class="version">版本-乐观锁：{{ cacheState.curRec.version }}</div>
+      <div class="creatorid">创建者：{{ cacheState.curRec.creatorId }}</div>
+      <div class="createtime">创建时间：{{ cacheState.curRec.createTime }}</div>
+      <div class="updatedby">更新人：{{ cacheState.curRec.updatedBy }}</div>
+      <div class="updatedtime">更新时间：{{ cacheState.curRec.updatedTime }}</div>
+      <div class="archived">删除标记：{{ cacheState.curRec.archived }}</div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cacheState.dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="cacheState.dialogVisible = false">确认</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -53,42 +91,51 @@
   let pagesize = 3;
   let currentpage = 0;
   let curlist: Page<User> = {} as Page<User>;
+  let dialogVisible = false;
+  let curRec = {} as User;
 
-  const pagination = reactive({
+  const cacheState = reactive({
     show,
     hidesp,
     total,
     pagesize,
     currentpage,
     curlist,
+    dialogVisible,
+    curRec,
   });
 
   function handleCurrentChange(val: number) {
-    pagination.currentpage = val;
+    cacheState.currentpage = val;
     const param: BasicPageParams = {
-      page: pagination.currentpage,
-      pageSize: pagination.pagesize,
+      page: cacheState.currentpage,
+      pageSize: cacheState.pagesize,
     };
     queryUsers(param).then((res) => {
-      pagination.curlist = res;
-      pagination.currentpage = res.current;
-      pagination.total = res.total;
+      cacheState.curlist = res;
+      cacheState.currentpage = res.current;
+      cacheState.total = res.total;
     });
   }
 
   onBeforeMount(() => {
-    handleCurrentChange(pagination.currentpage);
+    handleCurrentChange(cacheState.currentpage);
   });
 
   function onedit(rec: User) {
-    console.log(rec);
+    cacheState.curRec = rec;
+    cacheState.dialogVisible = true;
   }
   function ondelete(rec: User) {
     deleteUser(rec.id).then((res) => {
       if (res) {
-        handleCurrentChange(pagination.currentpage);
+        handleCurrentChange(cacheState.currentpage);
       }
     });
+  }
+  function handleClose() {
+    // 点击空白区域是否关闭对话框
+    // cacheState.dialogVisible = false;
   }
 </script>
 <style scoped>

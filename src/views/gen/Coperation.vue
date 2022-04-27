@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <div class="nodata" v-if="pagination.total <= 0">
+    <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in pagination.curlist.records" :key="rec.id">
+    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">企业唯一标识：{{ rec.id }}</div>
       <div class="copname">企业或机构名称：{{ rec.copName }}</div>
       <div class="logo">公司LOGO：{{ rec.logo }}</div>
@@ -28,13 +28,47 @@
       </div>
     </div>
     <el-pagination
-      :hide-on-single-page="pagination.hidesp"
-      :total="pagination.total"
-      :page-size="pagination.pagesize"
-      :current-page="pagination.currentpage"
+      :hide-on-single-page="cacheState.hidesp"
+      :total="cacheState.total"
+      :page-size="cacheState.pagesize"
+      :current-page="cacheState.currentpage"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
     />
+    <el-dialog
+      v-model="cacheState.dialogVisible"
+      title="Coperation编辑"
+      lock-scroll="true"
+      width="30%"
+      draggable
+      :before-close="handleClose"
+    >
+      <span>我是对话框</span>
+      <div class="id">企业唯一标识：{{ cacheState.curRec.id }}</div>
+      <div class="copname">企业或机构名称：{{ cacheState.curRec.copName }}</div>
+      <div class="logo">公司LOGO：{{ cacheState.curRec.logo }}</div>
+      <div class="bizlicense">营业执照：{{ cacheState.curRec.bizLicense }}</div>
+      <div class="linkman">联系人：{{ cacheState.curRec.linkMan }}</div>
+      <div class="linkmanmobile">联系人电话：{{ cacheState.curRec.linkManMobile }}</div>
+      <div class="address">联系地址：{{ cacheState.curRec.address }}</div>
+      <div class="checked">是否核实：{{ cacheState.curRec.checked }}</div>
+      <div class="checkuser">核实人员：{{ cacheState.curRec.checkUser }}</div>
+      <div class="revision">乐观锁：{{ cacheState.curRec.revision }}</div>
+      <div class="createdby">创建人：{{ cacheState.curRec.createdBy }}</div>
+      <div class="creatormobile">创建人手机号：{{ cacheState.curRec.creatorMobile }}</div>
+      <div class="createdtime">创建时间：{{ cacheState.curRec.createdTime }}</div>
+      <div class="updatedby">更新人：{{ cacheState.curRec.updatedBy }}</div>
+      <div class="updatedtime">更新时间：{{ cacheState.curRec.updatedTime }}</div>
+      <div class="deleteflag">删除标识：{{ cacheState.curRec.deleteFlag }}</div>
+      <div class="copdesc">企业描述：{{ cacheState.curRec.copDesc }}</div>
+      <div class="status">申请结果(0未处理,1正常,2拒绝,3暂停)：{{ cacheState.curRec.status }}</div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cacheState.dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="cacheState.dialogVisible = false">确认</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -49,42 +83,51 @@
   let pagesize = 3;
   let currentpage = 0;
   let curlist: Page<Coperation> = {} as Page<Coperation>;
+  let dialogVisible = false;
+  let curRec = {} as Coperation;
 
-  const pagination = reactive({
+  const cacheState = reactive({
     show,
     hidesp,
     total,
     pagesize,
     currentpage,
     curlist,
+    dialogVisible,
+    curRec,
   });
 
   function handleCurrentChange(val: number) {
-    pagination.currentpage = val;
+    cacheState.currentpage = val;
     const param: BasicPageParams = {
-      page: pagination.currentpage,
-      pageSize: pagination.pagesize,
+      page: cacheState.currentpage,
+      pageSize: cacheState.pagesize,
     };
     queryCoperations(param).then((res) => {
-      pagination.curlist = res;
-      pagination.currentpage = res.current;
-      pagination.total = res.total;
+      cacheState.curlist = res;
+      cacheState.currentpage = res.current;
+      cacheState.total = res.total;
     });
   }
 
   onBeforeMount(() => {
-    handleCurrentChange(pagination.currentpage);
+    handleCurrentChange(cacheState.currentpage);
   });
 
   function onedit(rec: Coperation) {
-    console.log(rec);
+    cacheState.curRec = rec;
+    cacheState.dialogVisible = true;
   }
   function ondelete(rec: Coperation) {
     deleteCoperation(rec.id).then((res) => {
       if (res) {
-        handleCurrentChange(pagination.currentpage);
+        handleCurrentChange(cacheState.currentpage);
       }
     });
+  }
+  function handleClose() {
+    // 点击空白区域是否关闭对话框
+    // cacheState.dialogVisible = false;
   }
 </script>
 <style scoped>
