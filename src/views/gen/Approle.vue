@@ -23,11 +23,13 @@
     </div>
     <el-pagination
       :hide-on-single-page="cacheState.hidesp"
+      :page-sizes="[5, 10, 20, 50]"
       :total="cacheState.total"
       :page-size="cacheState.pagesize"
       :current-page="cacheState.currentpage"
       @current-change="handleCurrentChange"
-      layout="prev, pager, next"
+      @size-change="handleSizeChange"
+      layout="total, sizes, prev, pager, next, jumper"
     />
     <el-dialog
       v-model="cacheState.dialogVisible"
@@ -97,7 +99,10 @@
       cacheState.total = res.total;
     });
   }
-
+  function handleSizeChange(val: number) {
+    cacheState.pagesize = val;
+    handleCurrentChange(cacheState.currentpage);
+  }
   onBeforeMount(() => {
     handleCurrentChange(cacheState.currentpage);
   });

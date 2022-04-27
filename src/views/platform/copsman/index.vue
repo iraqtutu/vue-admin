@@ -56,28 +56,30 @@
     </div>
     <el-pagination
       :hide-on-single-page="cacheState.hidesp"
+      :page-sizes="[5, 10, 20, 50]"
       :total="cacheState.total"
       :page-size="cacheState.pagesize"
       :current-page="cacheState.currentpage"
       @current-change="handleCurrentChange"
-      layout="prev, pager, next"
+      @size-change="handleSizeChange"
+      layout="total, sizes, prev, pager, next, jumper"
     />
+    <el-dialog
+      v-model="cacheState.dialogVisible"
+      :title="cacheState.curCop.copName"
+      lock-scroll="true"
+      width="30%"
+      draggable
+    >
+      <span>{{ cacheState.curCop.copName }}</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cacheState.dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="cacheState.dialogVisible = false">确认</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
-  <el-dialog
-    v-model="cacheState.dialogVisible"
-    :title="cacheState.curCop.copName"
-    lock-scroll="true"
-    width="30%"
-    draggable
-  >
-    <span>{{ cacheState.curCop.copName }}</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="cacheState.dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="cacheState.dialogVisible = false">确认</el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 <script setup lang="ts">
   import { Coperation } from '/@/api/model/genModel';
@@ -117,7 +119,10 @@
       cacheState.total = res.total;
     });
   }
-
+  function handleSizeChange(val: number) {
+    cacheState.pagesize = val;
+    handleCurrentChange(cacheState.currentpage);
+  }
   onBeforeMount(() => {
     handleCurrentChange(cacheState.currentpage);
   });
