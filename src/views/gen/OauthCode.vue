@@ -3,7 +3,7 @@
     <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
+    <div class="item bg-white p-4 m-4" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="createtime">授权码创建时间;：{{ rec.createTime }}</div>
       <div class="code">授权码;：{{ rec.code }}</div>
       <div class="authentication"

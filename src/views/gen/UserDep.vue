@@ -3,7 +3,7 @@
     <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
+    <div class="item bg-white p-4 m-4" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">唯一标识：{{ rec.id }}</div>
       <div class="revision">乐观锁：{{ rec.revision }}</div>
       <div class="createdby">创建人：{{ rec.createdBy }}</div>

@@ -3,7 +3,7 @@
     <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
+    <div class="item bg-white p-4 m-4" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">企业唯一标识：{{ rec.id }}</div>
       <div class="copname">企业或机构名称：{{ rec.copName }}</div>
       <div class="logo">公司LOGO：{{ rec.logo }}</div>

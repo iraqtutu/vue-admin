@@ -3,7 +3,7 @@
     <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
+    <div class="item bg-white p-4 m-4" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">组标识：{{ rec.id }}</div>
       <div class="appid">应用标识：{{ rec.appid }}</div>
       <div class="parentid">上级组节点：{{ rec.parentId }}</div>

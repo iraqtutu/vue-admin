@@ -3,7 +3,7 @@
     <div class="nodata" v-if="cacheState.total <= 0">
       <p>暂无数据</p>
     </div>
-    <div class="item" v-for="rec in cacheState.curlist.records" :key="rec.id">
+    <div class="item bg-white p-4 m-4" v-for="rec in cacheState.curlist.records" :key="rec.id">
       <div class="id">申请单ID：{{ rec.id }}</div>
       <div class="copid">企业ID：{{ rec.copId }}</div>
       <div class="status">申请结果(0未处理,1通过,2,拒绝)：{{ rec.status }}</div>
