@@ -100,8 +100,9 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useGlobSetting } from '/@/hooks/setting';
   //import { onKeyStroke } from '@vueuse/core';
-
+  const globSetting = useGlobSetting();
   const ACol = Col;
   const ARow = Row;
   const FormItem = Form.Item;
@@ -134,9 +135,16 @@
     if (!data) return;
     try {
       loading.value = true;
+      debugger;
+      console.log(globSetting.clientId);
+      console.log(globSetting.clientSecret);
       const userInfo = await userStore.login({
         password: data.password,
         username: data.account,
+        client_id: globSetting.clientId,
+        client_secret: globSetting.clientSecret,
+        grant_type: 'password',
+        scope: 'openid',
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {

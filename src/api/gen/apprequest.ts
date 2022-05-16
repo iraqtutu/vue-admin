@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { Apprequest } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询应用申请
  */
 export function getApprequest(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Apprequest>(
+  return curHttp.get<Apprequest>(
     {
       url: Api.crudApprequest + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getApprequest(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询应用申请,包含各种状态的
  */
 export function queryApprequests(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<Apprequest>>(
+  return curHttp.get<Page<Apprequest>>(
     {
       url: Api.queryApprequests,
       params,
@@ -41,7 +41,7 @@ export function queryApprequests(params: BasicPageParams, mode: ErrorMessageMode
  * @description: 根据ID逻辑删除应用申请
  */
 export function deleteApprequest(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudApprequest + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteApprequest(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增应用申请
  */
 export function saveApprequest(param: Apprequest, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudApprequest,
       data: param,
@@ -70,7 +70,7 @@ export function saveApprequest(param: Apprequest, mode: ErrorMessageMode = 'moda
  * @description: 更新应用申请
  */
 export function updateApprequest(param: Apprequest, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudApprequest,
       data: param,

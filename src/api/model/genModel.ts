@@ -26,6 +26,26 @@ export interface Appfunction {
   updatedTime: string;
   deleteFlag: number;
 }
+export interface Application {
+  clientId: string;
+  resourceIds: string;
+  clientSecret: string;
+  scope: string;
+  authorizedGrantTypes: string;
+  webServerRedirectUri: string;
+  authorities: string;
+  accessTokenValidity: number;
+  refreshTokenValidity: number;
+  additionalInformation: string;
+  createTime: string;
+  archived: string;
+  trusted: string;
+  autoapprove: string;
+  appname: string;
+  description: string;
+  logo: string;
+  copId: string;
+}
 export interface Apprequest {
   id: string;
   copId: string;
@@ -212,6 +232,33 @@ export interface RoleFunc {
   updatedTime: string;
   deleteFlag: number;
 }
+export interface User {
+  uuid: string;
+  createTime: string;
+  archived: string;
+  version: number;
+  username: string;
+  nickname: string;
+  realname: string;
+  password: string;
+  phone: string;
+  email: string;
+  idnum: string;
+  avatar: string;
+  idcarda: string;
+  idcardb: string;
+  note: string;
+  defaultUser: string;
+  lastLoginTime: string;
+  creatorId: string;
+  signature: string;
+  introduction: string;
+  address: string;
+  copId: string;
+  locked: string;
+  accountExpiredTime: string;
+  pwdExpiredTime: string;
+}
 export interface UserDep {
   id: string;
   revision: number;
@@ -236,6 +283,14 @@ export interface UserFunc {
   updatedTime: string;
   deleteFlag: number;
 }
+export interface UserPrivilege {
+  uuid: string;
+  createTime: string;
+  archived: string;
+  version: number;
+  userId: string;
+  privilege: string;
+}
 export interface UserRole {
   id: string;
   appId: string;
@@ -258,33 +313,6 @@ export interface OauthAccessToken {
   authentication: string;
   refreshToken: string;
 }
-export interface OauthClientDetails {
-  id: string;
-  clientId: string;
-  resourceIds: string;
-  clientSecret: string;
-  scope: string;
-  authorizedGrantTypes: string;
-  webServerRedirectUri: string;
-  authorities: string;
-  accessTokenValidity: number;
-  refreshTokenValidity: number;
-  additionalInformation: string;
-  createTime: string;
-  archived: number;
-  trusted: number;
-  autoapprove: number;
-  copId: string;
-  appCname: string;
-  note: string;
-  viewId: string;
-  revision: number;
-  createdBy: string;
-  createdTime: string;
-  updatedBy: string;
-  updatedTime: string;
-  deleteFlag: number;
-}
 export interface OauthCode {
   createTime: string;
   code: string;
@@ -295,37 +323,4 @@ export interface OauthRefreshToken {
   tokenId: string;
   token: string;
   authentication: string;
-}
-export interface User {
-  id: string;
-  copId: string;
-  uuid: string;
-  username: string;
-  nickname: string;
-  realname: string;
-  password: string;
-  phone: string;
-  email: string;
-  idnum: string;
-  avatar: string;
-  idcarda: string;
-  idcardb: string;
-  note: string;
-  innerUser: number;
-  lastLoginTime: string;
-  version: number;
-  creatorId: string;
-  createTime: string;
-  updatedBy: string;
-  updatedTime: string;
-  archived: number;
-}
-export interface UserPrivilege {
-  id: string;
-  uuid: string;
-  createTime: string;
-  archived: number;
-  version: number;
-  userId: string;
-  privilege: string;
 }

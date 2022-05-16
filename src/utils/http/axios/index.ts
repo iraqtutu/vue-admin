@@ -50,10 +50,21 @@ const transform: AxiosTransform = {
       throw new Error(t('sys.api.apiRequestFailed'));
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    let { code, result, message } = data;
 
-    // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
+    // 如果返回的数据是没有封装的，单独进行赋值
+    if (code === undefined || result === undefined || message === undefined) {
+      if (res.status === 200) {
+        code = ResultEnum.SUCCESS;
+      } else {
+        code = res.status;
+      }
+      result = data;
+      message = res.statusText;
+    }
+
+    // 这里逻辑可以根据项目进行修改，Reflect.has(data, 'code') &&
+    const hasSuccess = data && code === ResultEnum.SUCCESS;
     if (hasSuccess) {
       return result;
     }
@@ -210,7 +221,7 @@ function createAxios(url: string, opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: 10 * 1000,
+        timeout: 20 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
 
@@ -254,10 +265,10 @@ function createAxios(url: string, opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
-export const localHttp = createAxios(globSetting.localUrl); //本地Mock
-export const localDebugHttp = createAxios(globSetting.localJavaDebug); //本地Mock
-export const mockHttp = createAxios(globSetting.mockUrl); //远程Mock
-export const apiHttp = createAxios(globSetting.apiUrl); //远程接口
+export const localHttp = createAxios(globSetting.localUrl); //本地Mock(vite内置)
+export const localDebugHttp = createAxios(globSetting.localJavaDebug); //本地tMock(本地调试Java)
+export const mockHttp = createAxios(globSetting.mockUrl); //远程Mock(搭建的Mockjs服务器)
+export const apiHttp = createAxios(globSetting.apiUrl); //远程接口(远程部署的Java后台)
 
 // other api url
 // export const otherHttp = createAxios({

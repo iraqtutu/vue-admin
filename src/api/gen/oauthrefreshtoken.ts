@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { OauthRefreshToken } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -9,10 +9,10 @@ enum Api {
 }
 
 /**
- * @description: 根据ID查询OAUTHRefreshToken缓存
+ * @description: 根据ID查询Refresh Token
  */
 export function getOauthRefreshToken(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<OauthRefreshToken>(
+  return curHttp.get<OauthRefreshToken>(
     {
       url: Api.crudOauthRefreshToken + '/' + id,
     },
@@ -23,10 +23,10 @@ export function getOauthRefreshToken(id: string, mode: ErrorMessageMode = 'modal
 }
 
 /**
- * @description: 分页查询OAUTHRefreshToken缓存,包含各种状态的
+ * @description: 分页查询Refresh Token,包含各种状态的
  */
 export function queryOauthRefreshTokens(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<OauthRefreshToken>>(
+  return curHttp.get<Page<OauthRefreshToken>>(
     {
       url: Api.queryOauthRefreshTokens,
       params,
@@ -38,10 +38,10 @@ export function queryOauthRefreshTokens(params: BasicPageParams, mode: ErrorMess
 }
 
 /**
- * @description: 根据ID逻辑删除OAUTHRefreshToken缓存
+ * @description: 根据ID逻辑删除Refresh Token
  */
 export function deleteOauthRefreshToken(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudOauthRefreshToken + '/' + id,
     },
@@ -52,10 +52,10 @@ export function deleteOauthRefreshToken(id: string, mode: ErrorMessageMode = 'mo
 }
 
 /**
- * @description: 新增OAUTHRefreshToken缓存
+ * @description: 新增Refresh Token
  */
 export function saveOauthRefreshToken(param: OauthRefreshToken, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudOauthRefreshToken,
       data: param,
@@ -67,13 +67,13 @@ export function saveOauthRefreshToken(param: OauthRefreshToken, mode: ErrorMessa
 }
 
 /**
- * @description: 更新OAUTHRefreshToken缓存
+ * @description: 更新Refresh Token
  */
 export function updateOauthRefreshToken(
   param: OauthRefreshToken,
   mode: ErrorMessageMode = 'modal',
 ) {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudOauthRefreshToken,
       data: param,

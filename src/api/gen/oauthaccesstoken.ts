@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { OauthAccessToken } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -9,10 +9,10 @@ enum Api {
 }
 
 /**
- * @description: 根据ID查询OAUTH的Token缓存表
+ * @description: 根据ID查询oauth_access_token缓存
  */
 export function getOauthAccessToken(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<OauthAccessToken>(
+  return curHttp.get<OauthAccessToken>(
     {
       url: Api.crudOauthAccessToken + '/' + id,
     },
@@ -23,10 +23,10 @@ export function getOauthAccessToken(id: string, mode: ErrorMessageMode = 'modal'
 }
 
 /**
- * @description: 分页查询OAUTH的Token缓存表,包含各种状态的
+ * @description: 分页查询oauth_access_token缓存,包含各种状态的
  */
 export function queryOauthAccessTokens(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<OauthAccessToken>>(
+  return curHttp.get<Page<OauthAccessToken>>(
     {
       url: Api.queryOauthAccessTokens,
       params,
@@ -38,10 +38,10 @@ export function queryOauthAccessTokens(params: BasicPageParams, mode: ErrorMessa
 }
 
 /**
- * @description: 根据ID逻辑删除OAUTH的Token缓存表
+ * @description: 根据ID逻辑删除oauth_access_token缓存
  */
 export function deleteOauthAccessToken(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudOauthAccessToken + '/' + id,
     },
@@ -52,10 +52,10 @@ export function deleteOauthAccessToken(id: string, mode: ErrorMessageMode = 'mod
 }
 
 /**
- * @description: 新增OAUTH的Token缓存表
+ * @description: 新增oauth_access_token缓存
  */
 export function saveOauthAccessToken(param: OauthAccessToken, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudOauthAccessToken,
       data: param,
@@ -67,10 +67,10 @@ export function saveOauthAccessToken(param: OauthAccessToken, mode: ErrorMessage
 }
 
 /**
- * @description: 更新OAUTH的Token缓存表
+ * @description: 更新oauth_access_token缓存
  */
 export function updateOauthAccessToken(param: OauthAccessToken, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudOauthAccessToken,
       data: param,

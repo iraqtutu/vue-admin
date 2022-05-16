@@ -7,7 +7,7 @@
       <div class="cont">
         <div class="up">
           <div class="col min-w-20 flex flex-col justify-center items-center">
-            <div class="logo w-20 h-20 p-3"> <img :src="rec.logo" alt="" /> </div>
+            <div class="logo w-14 h-14"> <img :src="rec.logo" alt="" /> </div>
           </div>
           <div class="col min-w-100">
             <div class="copname font-bold text-black cursor-pointer" @click="onedit(rec)"
@@ -22,7 +22,6 @@
               <span v-if="rec.status == 3" class="tip bg-blue-500 bg-opacity-50 p-0.5">暂停</span>
             </div>
             <!-- <div class="status">申请结果(0未处理,1正常,2拒绝,3暂停)：{{ rec.status }}</div> -->
-
             <div class="address">{{ rec.address }}</div>
           </div>
           <div class="col min-w-80">
@@ -37,10 +36,29 @@
         </div>
         <div class="down">
           <div class="copdesc">企业描述：{{ rec.copDesc }}</div>
+          <div class="float-right">
+            <el-button v-if="rec.status == 0" type="success"
+              ><span class="iconify text-l" data-icon="iconoir:security-pass"></span
+              >审核通过</el-button
+            >
+            <el-button v-if="rec.status == 3" type="primary" @click="onedit(rec)"
+              ><span class="iconify text-l" data-icon="clarity:note-edit-line"></span
+              >恢复</el-button
+            >
+            <el-button v-if="rec.status == 0" type="warning"
+              ><span class="iconify text-l" data-icon="fluent:pause-circle-20-regular"></span
+              >暂停</el-button
+            >
+            <el-button type="danger" @click="ondelete(rec)">
+              <span class="iconify text-l" data-icon="ep:delete"></span>删除
+            </el-button>
+          </div>
+          <div class="clear-both"></div>
         </div>
       </div>
     </div>
     <el-pagination
+      class="ml-4"
       :hide-on-single-page="cacheState.hidesp"
       :page-sizes="[5, 10, 20, 50]"
       :total="cacheState.total"
@@ -84,7 +102,7 @@
             ><span class="iconify text-l" data-icon="clarity:note-edit-line"></span
           ></el-button>
           <el-button type="warning" circle
-            ><span class="iconify text-l" data-icon="bi:pause"></span
+            ><span class="iconify text-l" data-icon="fluent:pause-circle-20-regular"></span
           ></el-button>
           <el-button type="danger" circle @click="ondelete(cacheState.curCop)">
             <span class="iconify text-l" data-icon="ep:delete"></span>
@@ -155,12 +173,6 @@
   }
 </script>
 <style scoped>
-  .wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
   .nodata {
     position: absolute;
     left: 50%;

@@ -4,9 +4,9 @@ import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { RoleEnum } from '/@/enums/roleEnum';
 import { PageEnum } from '/@/enums/pageEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
+import { ROLES_KEY, TOKEN_KEY, REFRESH_TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
+import { GetUserInfoModel, LoginParams, BaseAuthParams } from '/@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -20,6 +20,7 @@ import { h } from 'vue';
 interface UserState {
   userInfo: Nullable<UserInfo>;
   token?: string;
+  refreshToken?: string;
   roleList: RoleEnum[];
   sessionTimeout?: boolean;
   lastUpdateTime: number;
@@ -32,6 +33,8 @@ export const useUserStore = defineStore({
     userInfo: null,
     // token
     token: undefined,
+    // refresh token
+    refreshToken: undefined,
     // roleList
     roleList: [],
     // Whether the login expired
@@ -45,6 +48,9 @@ export const useUserStore = defineStore({
     },
     getToken(): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
+    },
+    getRefreshToken(): string {
+      return getAuthCache<string>(REFRESH_TOKEN_KEY);
     },
     getRoleList(): RoleEnum[] {
       return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
@@ -61,11 +67,16 @@ export const useUserStore = defineStore({
       this.token = info ? info : ''; // for null or undefined value
       setAuthCache(TOKEN_KEY, info);
     },
+    setRefreshToken(info: string | undefined) {
+      this.token = info ? info : ''; // for null or undefined value
+      setAuthCache(REFRESH_TOKEN_KEY, info);
+    },
     setRoleList(roleList: RoleEnum[]) {
       this.roleList = roleList;
       setAuthCache(ROLES_KEY, roleList);
     },
     setUserInfo(info: UserInfo | null) {
+      // console.log('setUserInfo', info);
       this.userInfo = info;
       this.lastUpdateTime = new Date().getTime();
       setAuthCache(USER_INFO_KEY, info);
@@ -83,27 +94,34 @@ export const useUserStore = defineStore({
      * @description: login
      */
     async login(
-      params: LoginParams & {
-        goHome?: boolean;
-        mode?: ErrorMessageMode;
-      },
+      params: LoginParams &
+        BaseAuthParams & {
+          goHome?: boolean;
+          mode?: ErrorMessageMode;
+        },
     ): Promise<GetUserInfoModel | null> {
       try {
-        const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
-        const { token } = data;
+        const { goHome = true, mode, client_id, client_secret, ...loginParams } = params;
+        debugger;
+        const data = await loginApi(loginParams, { client_id, client_secret }, mode);
+        debugger;
+        const { access_token, refresh_token } = data;
 
         // save token
-        this.setToken(token);
-        return this.afterLoginAction(goHome);
+        this.setToken(access_token);
+        this.setRefreshToken(refresh_token);
+        return this.afterLoginAction(access_token, goHome);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(
+      accessToken: string,
+      goHome?: boolean,
+    ): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
-      const userInfo = await this.getUserInfoAction();
+      const userInfo = await this.getUserInfoAction(accessToken);
 
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
@@ -122,9 +140,10 @@ export const useUserStore = defineStore({
       }
       return userInfo;
     },
-    async getUserInfoAction(): Promise<UserInfo | null> {
+    async getUserInfoAction(accessToken: string): Promise<UserInfo | null> {
       if (!this.getToken) return null;
-      const userInfo = await getUserInfo();
+      const userInfo = await getUserInfo(accessToken);
+      console.log('userInfo', userInfo);
       const { roles = [] } = userInfo;
       if (isArray(roles)) {
         const roleList = roles.map((item) => item.value) as RoleEnum[];

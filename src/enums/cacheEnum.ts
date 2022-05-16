@@ -1,5 +1,7 @@
 // token key
 export const TOKEN_KEY = 'TOKEN__';
+// refresh token key
+export const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN__';
 
 export const LOCALE_KEY = 'LOCALE__';
 

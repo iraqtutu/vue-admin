@@ -31,6 +31,8 @@ export function getAppEnvConfig() {
     VITE_GLOB_APP_SHORT_NAME,
     VITE_LOCAL_MOCK_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
+    VITE_CLIENT_ID,
+    VITE_CLIENT_SECRET,
   } = ENV;
 
   if (!/^[a-zA-Z\_]*$/.test(VITE_GLOB_APP_SHORT_NAME)) {
@@ -48,6 +50,8 @@ export function getAppEnvConfig() {
     VITE_GLOB_APP_SHORT_NAME,
     VITE_LOCAL_MOCK_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
+    VITE_CLIENT_ID,
+    VITE_CLIENT_SECRET,
   };
 }
 

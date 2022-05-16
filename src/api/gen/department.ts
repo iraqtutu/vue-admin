@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { Department } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询视图岗位
  */
 export function getDepartment(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Department>(
+  return curHttp.get<Department>(
     {
       url: Api.crudDepartment + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getDepartment(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询视图岗位,包含各种状态的
  */
 export function queryDepartments(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<Department>>(
+  return curHttp.get<Page<Department>>(
     {
       url: Api.queryDepartments,
       params,
@@ -41,7 +41,7 @@ export function queryDepartments(params: BasicPageParams, mode: ErrorMessageMode
  * @description: 根据ID逻辑删除视图岗位
  */
 export function deleteDepartment(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudDepartment + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteDepartment(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增视图岗位
  */
 export function saveDepartment(param: Department, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudDepartment,
       data: param,
@@ -70,7 +70,7 @@ export function saveDepartment(param: Department, mode: ErrorMessageMode = 'moda
  * @description: 更新视图岗位
  */
 export function updateDepartment(param: Department, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudDepartment,
       data: param,

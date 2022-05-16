@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { UserFunc } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询用户功能关系
  */
 export function getUserFunc(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<UserFunc>(
+  return curHttp.get<UserFunc>(
     {
       url: Api.crudUserFunc + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getUserFunc(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询用户功能关系,包含各种状态的
  */
 export function queryUserFuncs(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<UserFunc>>(
+  return curHttp.get<Page<UserFunc>>(
     {
       url: Api.queryUserFuncs,
       params,
@@ -41,7 +41,7 @@ export function queryUserFuncs(params: BasicPageParams, mode: ErrorMessageMode =
  * @description: 根据ID逻辑删除用户功能关系
  */
 export function deleteUserFunc(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudUserFunc + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteUserFunc(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增用户功能关系
  */
 export function saveUserFunc(param: UserFunc, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudUserFunc,
       data: param,
@@ -70,7 +70,7 @@ export function saveUserFunc(param: UserFunc, mode: ErrorMessageMode = 'modal') 
  * @description: 更新用户功能关系
  */
 export function updateUserFunc(param: UserFunc, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudUserFunc,
       data: param,

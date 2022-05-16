@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { DepFunc } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询岗位功能关系
  */
 export function getDepFunc(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<DepFunc>(
+  return curHttp.get<DepFunc>(
     {
       url: Api.crudDepFunc + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getDepFunc(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询岗位功能关系,包含各种状态的
  */
 export function queryDepFuncs(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<DepFunc>>(
+  return curHttp.get<Page<DepFunc>>(
     {
       url: Api.queryDepFuncs,
       params,
@@ -41,7 +41,7 @@ export function queryDepFuncs(params: BasicPageParams, mode: ErrorMessageMode = 
  * @description: 根据ID逻辑删除岗位功能关系
  */
 export function deleteDepFunc(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudDepFunc + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteDepFunc(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增岗位功能关系
  */
 export function saveDepFunc(param: DepFunc, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudDepFunc,
       data: param,
@@ -70,7 +70,7 @@ export function saveDepFunc(param: DepFunc, mode: ErrorMessageMode = 'modal') {
  * @description: 更新岗位功能关系
  */
 export function updateDepFunc(param: DepFunc, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudDepFunc,
       data: param,

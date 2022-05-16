@@ -1,7 +1,22 @@
+export interface BaseAuthParams {
+  client_id: string;
+  client_secret: string;
+}
+
+/**
+ * @description: RefreshToken interface parameters
+ */
+export interface RefreshTokenParams extends BaseAuthParams {
+  grant_type: string;
+  refresh_token: string;
+}
+
 /**
  * @description: Login interface parameters
  */
 export interface LoginParams {
+  grant_type: string;
+  scope: string;
   username: string;
   password: string;
 }
@@ -15,9 +30,12 @@ export interface RoleInfo {
  * @description: Login interface return value
  */
 export interface LoginResultModel {
-  userId: string | number;
-  token: string;
-  role: RoleInfo;
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+  jti: string;
 }
 
 /**
@@ -26,7 +44,7 @@ export interface LoginResultModel {
 export interface GetUserInfoModel {
   roles: RoleInfo[];
   // 用户id
-  userId: string | number;
+  uuid: string;
   // 用户名
   username: string;
   // 真实名字
@@ -35,4 +53,12 @@ export interface GetUserInfoModel {
   avatar: string;
   // 介绍
   desc?: string;
+  // 手机号
+  phone?: string;
+  // 邮箱
+  email?: string;
+  // 地址
+  address?: string;
+  // 公司
+  cop_id?: string;
 }

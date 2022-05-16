@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { Copconfig } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询企业配置信息
  */
 export function getCopconfig(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Copconfig>(
+  return curHttp.get<Copconfig>(
     {
       url: Api.crudCopconfig + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getCopconfig(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询企业配置信息,包含各种状态的
  */
 export function queryCopconfigs(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<Copconfig>>(
+  return curHttp.get<Page<Copconfig>>(
     {
       url: Api.queryCopconfigs,
       params,
@@ -41,7 +41,7 @@ export function queryCopconfigs(params: BasicPageParams, mode: ErrorMessageMode 
  * @description: 根据ID逻辑删除企业配置信息
  */
 export function deleteCopconfig(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudCopconfig + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteCopconfig(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增企业配置信息
  */
 export function saveCopconfig(param: Copconfig, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudCopconfig,
       data: param,
@@ -70,7 +70,7 @@ export function saveCopconfig(param: Copconfig, mode: ErrorMessageMode = 'modal'
  * @description: 更新企业配置信息
  */
 export function updateCopconfig(param: Copconfig, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudCopconfig,
       data: param,

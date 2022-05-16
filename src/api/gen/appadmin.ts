@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { Appadmin } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询管理员信息
  */
 export function getAppadmin(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Appadmin>(
+  return curHttp.get<Appadmin>(
     {
       url: Api.crudAppadmin + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getAppadmin(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询管理员信息,包含各种状态的
  */
 export function queryAppadmins(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<Appadmin>>(
+  return curHttp.get<Page<Appadmin>>(
     {
       url: Api.queryAppadmins,
       params,
@@ -41,7 +41,7 @@ export function queryAppadmins(params: BasicPageParams, mode: ErrorMessageMode =
  * @description: 根据ID逻辑删除管理员信息
  */
 export function deleteAppadmin(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudAppadmin + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteAppadmin(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 新增管理员信息
  */
 export function saveAppadmin(param: Appadmin, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudAppadmin,
       data: param,
@@ -70,7 +70,7 @@ export function saveAppadmin(param: Appadmin, mode: ErrorMessageMode = 'modal') 
  * @description: 更新管理员信息
  */
 export function updateAppadmin(param: Appadmin, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudAppadmin,
       data: param,

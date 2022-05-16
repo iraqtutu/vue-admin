@@ -1,24 +1,34 @@
-import { localHttp } from '/@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
+import { localDebugHttp } from '/@/utils/http/axios';
+import { BaseAuthParams, LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
-  Login = '/login',
+  Login = '/oauth/token',
   Logout = '/logout',
-  GetUserInfo = '/getUserInfo',
+  GetUserInfo = '/api/userinfo',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
 }
 
 /**
- * @description: user login api
+ * @description: user login api,return token
  */
-export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return localHttp.post<LoginResultModel>(
+export function loginApi(
+  params: LoginParams,
+  authinfo: BaseAuthParams,
+  mode: ErrorMessageMode = 'modal',
+) {
+  debugger;
+  return localDebugHttp.post<LoginResultModel>(
     {
       url: Api.Login,
-      params,
+      data: params,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      auth: { username: authinfo.client_id, password: authinfo.client_secret },
     },
     {
       errorMessageMode: mode,
@@ -29,20 +39,29 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
 /**
  * @description: getUserInfo
  */
-export function getUserInfo() {
-  return localHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: 'none' });
+export function getUserInfo(accessToken: string) {
+  return localDebugHttp.get<GetUserInfoModel>(
+    {
+      url: Api.GetUserInfo,
+      params: {
+        access_token: accessToken,
+      },
+      withCredentials: true,
+    },
+    { errorMessageMode: 'none' },
+  );
 }
 
 export function getPermCode() {
-  return localHttp.get<string[]>({ url: Api.GetPermCode });
+  return localDebugHttp.get<string[]>({ url: Api.GetPermCode });
 }
 
 export function doLogout() {
-  return localHttp.get({ url: Api.Logout });
+  return localDebugHttp.get({ url: Api.Logout });
 }
 
 export function testRetry() {
-  return localHttp.get(
+  return localDebugHttp.get(
     { url: Api.TestRetry },
     {
       retryRequest: {

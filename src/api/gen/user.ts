@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { User } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -9,10 +9,10 @@ enum Api {
 }
 
 /**
- * @description: 根据ID查询OAUTH用户表
+ * @description: 根据ID查询系统用户
  */
 export function getUser(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<User>(
+  return curHttp.get<User>(
     {
       url: Api.crudUser + '/' + id,
     },
@@ -23,10 +23,10 @@ export function getUser(id: string, mode: ErrorMessageMode = 'modal') {
 }
 
 /**
- * @description: 分页查询OAUTH用户表,包含各种状态的
+ * @description: 分页查询系统用户,包含各种状态的
  */
 export function queryUsers(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<User>>(
+  return curHttp.get<Page<User>>(
     {
       url: Api.queryUsers,
       params,
@@ -38,10 +38,10 @@ export function queryUsers(params: BasicPageParams, mode: ErrorMessageMode = 'mo
 }
 
 /**
- * @description: 根据ID逻辑删除OAUTH用户表
+ * @description: 根据ID逻辑删除系统用户
  */
 export function deleteUser(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudUser + '/' + id,
     },
@@ -52,10 +52,10 @@ export function deleteUser(id: string, mode: ErrorMessageMode = 'modal') {
 }
 
 /**
- * @description: 新增OAUTH用户表
+ * @description: 新增系统用户
  */
 export function saveUser(param: User, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudUser,
       data: param,
@@ -67,10 +67,10 @@ export function saveUser(param: User, mode: ErrorMessageMode = 'modal') {
 }
 
 /**
- * @description: 更新OAUTH用户表
+ * @description: 更新系统用户
  */
 export function updateUser(param: User, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudUser,
       data: param,

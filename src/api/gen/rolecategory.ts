@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { Rolecategory } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -12,7 +12,7 @@ enum Api {
  * @description: 根据ID查询角色目录
  */
 export function getRolecategory(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Rolecategory>(
+  return curHttp.get<Rolecategory>(
     {
       url: Api.crudRolecategory + '/' + id,
     },
@@ -26,7 +26,7 @@ export function getRolecategory(id: string, mode: ErrorMessageMode = 'modal') {
  * @description: 分页查询角色目录,包含各种状态的
  */
 export function queryRolecategorys(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<Rolecategory>>(
+  return curHttp.get<Page<Rolecategory>>(
     {
       url: Api.queryRolecategorys,
       params,
@@ -41,7 +41,7 @@ export function queryRolecategorys(params: BasicPageParams, mode: ErrorMessageMo
  * @description: 根据ID逻辑删除角色目录
  */
 export function deleteRolecategory(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudRolecategory + '/' + id,
     },
@@ -55,7 +55,7 @@ export function deleteRolecategory(id: string, mode: ErrorMessageMode = 'modal')
  * @description: 新增角色目录
  */
 export function saveRolecategory(param: Rolecategory, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudRolecategory,
       data: param,
@@ -70,7 +70,7 @@ export function saveRolecategory(param: Rolecategory, mode: ErrorMessageMode = '
  * @description: 更新角色目录
  */
 export function updateRolecategory(param: Rolecategory, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudRolecategory,
       data: param,

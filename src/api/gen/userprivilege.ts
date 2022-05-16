@@ -1,4 +1,4 @@
-import { localDebugHttp } from '/@/utils/http/axios';
+import { apiHttp as curHttp } from '/@/utils/http/axios';
 import { BasicPageParams, Page } from '/@/api/model/baseModel';
 import { UserPrivilege } from '/@/api/model/genModel';
 import { ErrorMessageMode } from '/#/axios';
@@ -9,10 +9,10 @@ enum Api {
 }
 
 /**
- * @description: 根据ID查询OAUTH用户权限表
+ * @description: 根据ID查询oauth用户权限表
  */
 export function getUserPrivilege(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<UserPrivilege>(
+  return curHttp.get<UserPrivilege>(
     {
       url: Api.crudUserPrivilege + '/' + id,
     },
@@ -23,10 +23,10 @@ export function getUserPrivilege(id: string, mode: ErrorMessageMode = 'modal') {
 }
 
 /**
- * @description: 分页查询OAUTH用户权限表,包含各种状态的
+ * @description: 分页查询oauth用户权限表,包含各种状态的
  */
 export function queryUserPrivileges(params: BasicPageParams, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.get<Page<UserPrivilege>>(
+  return curHttp.get<Page<UserPrivilege>>(
     {
       url: Api.queryUserPrivileges,
       params,
@@ -38,10 +38,10 @@ export function queryUserPrivileges(params: BasicPageParams, mode: ErrorMessageM
 }
 
 /**
- * @description: 根据ID逻辑删除OAUTH用户权限表
+ * @description: 根据ID逻辑删除oauth用户权限表
  */
 export function deleteUserPrivilege(id: string, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.delete<Boolean>(
+  return curHttp.delete<Boolean>(
     {
       url: Api.crudUserPrivilege + '/' + id,
     },
@@ -52,10 +52,10 @@ export function deleteUserPrivilege(id: string, mode: ErrorMessageMode = 'modal'
 }
 
 /**
- * @description: 新增OAUTH用户权限表
+ * @description: 新增oauth用户权限表
  */
 export function saveUserPrivilege(param: UserPrivilege, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.post<Boolean>(
+  return curHttp.post<Boolean>(
     {
       url: Api.crudUserPrivilege,
       data: param,
@@ -67,10 +67,10 @@ export function saveUserPrivilege(param: UserPrivilege, mode: ErrorMessageMode =
 }
 
 /**
- * @description: 更新OAUTH用户权限表
+ * @description: 更新oauth用户权限表
  */
 export function updateUserPrivilege(param: UserPrivilege, mode: ErrorMessageMode = 'modal') {
-  return localDebugHttp.put<Boolean>(
+  return curHttp.put<Boolean>(
     {
       url: Api.crudUserPrivilege,
       data: param,

@@ -37,6 +37,16 @@ const autogen: AppRouteModule = {
       },
     },
     {
+      path: 'application',
+      name: 'application',
+      component: () => import('/@/views/gen/Application.vue'),
+      meta: {
+        title: '应用',
+        icon: 'mdi:application-cog-outline',
+        hideMenu: false,
+      },
+    },
+    {
       path: 'apprequest',
       name: 'apprequest',
       component: () => import('/@/views/gen/Apprequest.vue'),
@@ -177,6 +187,16 @@ const autogen: AppRouteModule = {
       },
     },
     {
+      path: 'user',
+      name: 'user',
+      component: () => import('/@/views/gen/User.vue'),
+      meta: {
+        title: '系统用户',
+        icon: 'mdi:application-cog-outline',
+        hideMenu: false,
+      },
+    },
+    {
       path: 'user_dep',
       name: 'user_dep',
       component: () => import('/@/views/gen/UserDep.vue'),
@@ -197,6 +217,16 @@ const autogen: AppRouteModule = {
       },
     },
     {
+      path: 'user_privilege',
+      name: 'user_privilege',
+      component: () => import('/@/views/gen/UserPrivilege.vue'),
+      meta: {
+        title: 'oauth用户权限表',
+        icon: 'mdi:application-cog-outline',
+        hideMenu: false,
+      },
+    },
+    {
       path: 'user_role',
       name: 'user_role',
       component: () => import('/@/views/gen/UserRole.vue'),
@@ -211,17 +241,7 @@ const autogen: AppRouteModule = {
       name: 'oauth_access_token',
       component: () => import('/@/views/gen/OauthAccessToken.vue'),
       meta: {
-        title: 'oauth的token缓存表',
-        icon: 'mdi:application-cog-outline',
-        hideMenu: false,
-      },
-    },
-    {
-      path: 'oauth_client_details',
-      name: 'oauth_client_details',
-      component: () => import('/@/views/gen/OauthClientDetails.vue'),
-      meta: {
-        title: 'oauth客户端应用表',
+        title: 'oauth_access_token缓存',
         icon: 'mdi:application-cog-outline',
         hideMenu: false,
       },
@@ -231,7 +251,7 @@ const autogen: AppRouteModule = {
       name: 'oauth_code',
       component: () => import('/@/views/gen/OauthCode.vue'),
       meta: {
-        title: 'oauth缓存授权码',
+        title: '授权码',
         icon: 'mdi:application-cog-outline',
         hideMenu: false,
       },
@@ -241,27 +261,7 @@ const autogen: AppRouteModule = {
       name: 'oauth_refresh_token',
       component: () => import('/@/views/gen/OauthRefreshToken.vue'),
       meta: {
-        title: 'oauthrefreshtoken缓存',
-        icon: 'mdi:application-cog-outline',
-        hideMenu: false,
-      },
-    },
-    {
-      path: 'user',
-      name: 'user',
-      component: () => import('/@/views/gen/User.vue'),
-      meta: {
-        title: 'oauth用户表',
-        icon: 'mdi:application-cog-outline',
-        hideMenu: false,
-      },
-    },
-    {
-      path: 'user_privilege',
-      name: 'user_privilege',
-      component: () => import('/@/views/gen/UserPrivilege.vue'),
-      meta: {
-        title: 'oauth用户权限表',
+        title: 'refresh token',
         icon: 'mdi:application-cog-outline',
         hideMenu: false,
       },
